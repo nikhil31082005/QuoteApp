@@ -7,8 +7,8 @@ const app = express();
 // Allowed origins for CORS
 const allowedOrigins = [
     'http://localhost:5173', // Local Vite development
-    process.env.FRONTEND_URL // Production frontend URL
-].filter(Boolean); // Remove undefined if env variable isn't set yet
+    process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null // Strip trailing slash if accidentally added
+].filter(Boolean); // Remove anything falsy
 
 // Middleware
 app.use(cors({
