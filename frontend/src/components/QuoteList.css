@@ -1,0 +1,169 @@
+.quote-container {
+    margin-top: 20px;
+
+    .categories-list {
+        overflow: auto;
+        white-space: nowrap;
+        display: flex;
+        gap: 20px;
+        padding: 10px;
+
+        .category {
+            font-size: 25px;
+            font-weight: 500;
+            display: inline-block;
+            color: #d1d5db;
+            text-align: center;
+            padding: 8px 28px;
+            text-decoration: none;
+            border-radius: 9999px;
+            background-color: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .category:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .category-active {
+            font-size: 25px;
+            font-weight: 500;
+            display: inline-block;
+            color: #d1d5db;
+            text-align: center;
+            padding: 8px 28px;
+            text-decoration: none;
+            border-radius: 9999px;
+            background-color: #325db3;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .category-active:hover {
+            background-color: #3b6bd1;
+            /* A slightly lighter blue on hover */
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Scrollbar Styling for WebKit browsers */
+        &::-webkit-scrollbar {
+            height: 8px;
+            /* Thickness of horizontal scrollbar */
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.15);
+            /* Grayish thumb */
+            border-radius: 10px;
+        }
+    }
+
+    .explore-quotes {
+        display: flex;
+        align-items: center;
+        height: 80px;
+        color: aliceblue;
+        font-size: 30px;
+        font-weight: 500;
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .loading-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+        color: white;
+    }
+
+    .load-more-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .load-more-btn {
+        padding: 10px 24px;
+        border-radius: 9999px;
+        background-color: #325db3;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+    }
+
+    .load-more-btn:hover:not(:disabled) {
+        background-color: #3b6bd1;
+    }
+
+    .load-more-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .end-of-collection {
+        text-align: center;
+        color: #9ca3af;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+
+    .no-quotes-container {
+        text-align: center;
+        padding: 4rem 0;
+        color: white;
+    }
+
+    .no-quotes-title {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #e2e8f0;
+    }
+
+    .no-quotes-subtitle {
+        color: #94a3b8;
+        margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .categories-list {
+            gap: 12px;
+            padding: 8px;
+
+            .category,
+            .category-active {
+                font-size: 16px;
+                padding: 6px 20px;
+            }
+        }
+
+        .explore-quotes {
+            font-size: 22px;
+            height: 60px;
+            justify-content: center;
+        }
+
+        .cards-container {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+            gap: 1rem;
+            padding: 0.5rem 0;
+        }
+    }
+}

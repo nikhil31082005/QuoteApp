@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import QuoteCard from './QuoteCard';
 import { QuoteService } from '../services/api';
+import './QuoteList.css'
 
 const CATEGORIES = [
     "All", "Motivation", "Nikhil", "Inspirational", "Life", "Wisdom", "Love",
@@ -53,30 +54,33 @@ const QuoteList = () => {
         setHasMore(true);
     };
 
-    return (
-        <div className="w-full max-w-7xl mx-auto px-4 py-8">
+    // Handles scrolling the categories horizontally with the mouse wheel
+    const handleCategoryScroll = (e) => {
+        const container = e.currentTarget;
+        container.scrollLeft += e.deltaY;
+    };
 
-            {/* Category Filter Menu */}
-            <div className="flex overflow-x-auto pb-4 mb-8 gap-3 scrollbar-hide shrink-0 snap-x">
+    return (
+        <div className='quote-container'>
+            <div className='categories-list' onWheel={handleCategoryScroll}>
                 {CATEGORIES.map(cat => (
                     <button
                         key={cat}
                         onClick={() => handleCategorySelect(cat)}
-                        className={`snap-center shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === cat
-                            ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/30 -translate-y-0.5'
-                            : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white border border-white/5'
-                            }`}
+                        className={activeCategory === cat ? "category-active" : 'category'}
                     >
                         {cat}
                     </button>
                 ))}
             </div>
-
-            {/* Masonry-like CSS columns layout */}
-            <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-                {quotes.map((q) => (
+            <div className='explore-quotes'>
+                EXPLORE MORE QUOTES
+            </div>
+            <div className='cards-container'>
+                {quotes.map((q, idx) => (
                     <QuoteCard
                         key={q.id || Math.random().toString()}
+                        index={idx}
                         quote={q.quote_text}
                         author={q.author}
                         categories={q.categories}
@@ -85,19 +89,17 @@ const QuoteList = () => {
             </div>
 
             {loading && quotes.length === 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[1, 2, 3, 4, 5, 6].map(i => (
-                        <div key={i} className="h-48 rounded-2xl bg-white/5 border border-white/10 animate-shimmer"></div>
-                    ))}
+                <div className='loading-container'>
+                    <p>Loading...</p>
                 </div>
             )}
 
             {hasMore && quotes.length > 0 && !loading && (
-                <div className="mt-12 text-center pb-24">
+                <div className='load-more-container'>
                     <button
                         onClick={loadMore}
                         disabled={loading}
-                        className="px-8 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium tracking-wide shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className='load-more-btn'
                     >
                         Load More Quotes
                     </button>
@@ -105,15 +107,15 @@ const QuoteList = () => {
             )}
 
             {!hasMore && quotes.length > 0 && (
-                <div className="mt-12 text-center text-slate-400 pb-24 italic">
+                <div className='end-of-collection'>
                     You've reached the end of the collection for this category.
                 </div>
             )}
 
             {!loading && quotes.length === 0 && (
-                <div className="text-center py-20">
-                    <h3 className="text-2xl text-slate-300 font-medium">No quotes found</h3>
-                    <p className="text-slate-500 mt-2">Try selecting a different category.</p>
+                <div className='no-quotes-container'>
+                    <h3 className='no-quotes-title'>No quotes found</h3>
+                    <p className='no-quotes-subtitle'>Try selecting a different category.</p>
                 </div>
             )}
         </div>

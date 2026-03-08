@@ -1,0 +1,103 @@
+.quote-card {
+    position: relative;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.quote-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.quote-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.quote-card-category-title {
+    color: #eebc6a;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.8rem 0;
+}
+
+.quote-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0 0 1.5rem 0;
+}
+
+.quote-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.quote-categories {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.quote-category-tag {
+    font-size: 0.75rem;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+}
+
+.quote-actions {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.quote-action-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #eebc6a;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    padding: 0;
+}
+
+.quote-action-btn:hover {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fcebb6;
+}
+
+.quote-action-icon {
+    width: 16px;
+    height: 16px;
+}
+
+@media (max-width: 768px) {
+    .quote-card {
+        padding: 1.2rem;
+        min-height: 160px;
+    }
+
+    .quote-text {
+        font-size: 1rem;
+        margin: 0 0 1.2rem 0;
+    }
+}

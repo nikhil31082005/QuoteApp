@@ -1,0 +1,53 @@
+.daily-quote-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 25%;
+    height: auto;
+    border-radius: 10px;
+    padding: 20px;
+    border: 2px solid transparent;
+    gap: 10px;
+
+    background:
+        linear-gradient(to right, #070e1c, #0f1521, #2a3436, #0f1521, #070e1c) padding-box,
+        linear-gradient(to right, #346083, #cca550) border-box;
+
+    box-shadow:
+        -10px 0 20px -5px rgba(52, 96, 131, 0.5),
+        10px 0 20px -5px rgba(204, 165, 80, 0.5);
+
+    .daily-quote-title {
+        color: #958b73;
+        font-size: 20px;
+    }
+
+    .daily-quote-text {
+        color: white;
+        font-size: 30px;
+        margin-left: 20px;
+    }
+
+    .daily-quote-author {
+        color: #8e836a;
+        font-size: large;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        padding: 15px;
+
+        .daily-quote-title {
+            font-size: 16px;
+        }
+
+        .daily-quote-text {
+            font-size: 22px;
+            margin-left: 10px;
+        }
+
+        .daily-quote-author {
+            font-size: medium;
+        }
+    }
+}
