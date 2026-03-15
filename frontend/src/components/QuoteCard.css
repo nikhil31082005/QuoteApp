@@ -101,3 +101,25 @@
         margin: 0 0 1.2rem 0;
     }
 }
+
+@media (max-width: 480px) {
+    .quote-card {
+        padding: 1rem;
+        min-height: 140px;
+    }
+
+    .quote-text {
+        font-size: 0.95rem;
+    }
+
+    .quote-card-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+
+    .quote-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

@@ -5,6 +5,15 @@ const fetchDailyQuote = async () => {
     try {
         console.log('🔄 Running daily quote fetch job...');
 
+        // First check if a quote was already fetched today
+        const QuoteRepository = require('../repositories/quoteRepository');
+        const hasQuoteToday = await QuoteRepository.hasDailyPickForToday();
+
+        if (hasQuoteToday) {
+            console.log('⏭️ Daily quote was already fetched today. Skipping.');
+            return;
+        }
+
         // Using an open random quote API (DummyJSON)
         const response = await fetch('https://dummyjson.com/quotes/random');
 

@@ -1,6 +1,7 @@
 .app-container {
   min-height: 100vh;
-  min-width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
   background-color: #040718;
 
   .app-content {
@@ -53,6 +54,22 @@
 
       .app-main {
         height: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      width: 95%;
+
+      .app-header {
+        padding: 20px 5px;
+
+        .app-title {
+          font-size: 28px;
+        }
+
+        .app-subtitle {
+          font-size: 16px;
+        }
       }
     }
   }

@@ -50,4 +50,24 @@
             font-size: medium;
         }
     }
+
+    @media (max-width: 480px) {
+        padding: 12px;
+
+        .daily-quote-title {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .daily-quote-text {
+            font-size: 18px;
+            margin-left: 0;
+            text-align: center;
+        }
+
+        .daily-quote-author {
+            font-size: small;
+            text-align: right;
+        }
+    }
 }
