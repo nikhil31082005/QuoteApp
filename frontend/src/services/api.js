@@ -1,9 +1,18 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+const getHeaders = () => {
+    const headers = {};
+    const token = localStorage.getItem('token');
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+};
+
 export const QuoteService = {
     async getDailyQuote() {
         try {
-            const response = await fetch(`${API_URL}/quotes/daily`);
+            const response = await fetch(`${API_URL}/quotes/daily`, { headers: getHeaders() });
             const data = await response.json();
             return data.success ? data.data : null;
         } catch (error) {
@@ -14,7 +23,7 @@ export const QuoteService = {
 
     async getRandomQuote() {
         try {
-            const response = await fetch(`${API_URL}/quotes/random`);
+            const response = await fetch(`${API_URL}/quotes/random`, { headers: getHeaders() });
             const data = await response.json();
             return data.success ? data.data : null;
         } catch (error) {
@@ -31,7 +40,7 @@ export const QuoteService = {
             if (category) {
                 url.searchParams.append('category', category);
             }
-            const response = await fetch(url.toString());
+            const response = await fetch(url.toString(), { headers: getHeaders() });
             const data = await response.json();
             return data.success ? data.data : [];
         } catch (error) {

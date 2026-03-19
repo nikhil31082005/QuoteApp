@@ -6,71 +6,35 @@
 
   .app-content {
     height: 100%;
-    width: 90%;
-    /* background-color: red; */
+    width: clamp(90%, 90vw, 1200px);
     margin: auto;
 
     .app-header {
-      height: 20%;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      /* gap: 12px; */
+      padding: clamp(1rem, 5vw, 2.5rem) clamp(0.5rem, 2vw, 1rem);
+      text-align: center;
+      gap: clamp(0.5rem, 2vw, 1rem);
 
       .app-title {
         color: white;
-        font-size: 48px;
+        font-size: clamp(1.75rem, 5vw, 3rem);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
       }
 
       .app-subtitle {
         color: rgb(133, 137, 137);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 30px;
+        font-size: clamp(1rem, 3vw, 1.875rem);
+        margin: 0;
       }
     }
 
     .app-main {
-      height: 80%;
-    }
-
-    @media (max-width: 768px) {
-      width: 95%;
-
-      .app-header {
-        height: auto;
-        padding: 40px 10px;
-        text-align: center;
-
-        .app-title {
-          font-size: 36px;
-        }
-
-        .app-subtitle {
-          font-size: 20px;
-        }
-      }
-
-      .app-main {
-        height: auto;
-      }
-    }
-
-    @media (max-width: 480px) {
-      width: 95%;
-
-      .app-header {
-        padding: 20px 5px;
-
-        .app-title {
-          font-size: 28px;
-        }
-
-        .app-subtitle {
-          font-size: 16px;
-        }
-      }
+      height: 100%;
     }
   }
 }

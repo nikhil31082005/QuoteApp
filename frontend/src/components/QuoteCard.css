@@ -1,12 +1,12 @@
 .quote-card {
     position: relative;
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: clamp(1rem, 3vw, 1.5rem);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 200px;
+    min-height: clamp(140px, 20vw, 200px);
     box-sizing: border-box;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -25,19 +25,19 @@
 
 .quote-card-category-title {
     color: #eebc6a;
-    font-size: 0.8rem;
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin: 0 0 0.8rem 0;
+    margin: 0 0 clamp(0.5rem, 1.5vw, 0.8rem) 0;
 }
 
 .quote-text {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
     line-height: 1.5;
     color: #e2e8f0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 clamp(1rem, 2vw, 1.5rem) 0;
 }
 
 .quote-card-bottom {
@@ -49,28 +49,28 @@
 
 .quote-categories {
     display: flex;
-    gap: 0.5rem;
+    gap: clamp(0.3rem, 1vw, 0.5rem);
 }
 
 .quote-category-tag {
-    font-size: 0.75rem;
+    font-size: clamp(0.65rem, 1.5vw, 0.75rem);
     color: #cbd5e1;
     background: rgba(255, 255, 255, 0.08);
-    padding: 0.3rem 0.6rem;
+    padding: clamp(0.2rem, 0.5vw, 0.3rem) clamp(0.4rem, 1vw, 0.6rem);
     border-radius: 12px;
 }
 
 .quote-actions {
     display: flex;
-    gap: 0.6rem;
+    gap: clamp(0.4rem, 1vw, 0.6rem);
 }
 
 .quote-action-btn {
     background: rgba(0, 0, 0, 0.3);
     border: none;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: clamp(28px, 4vw, 32px);
+    height: clamp(28px, 4vw, 32px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,32 +86,11 @@
 }
 
 .quote-action-icon {
-    width: 16px;
-    height: 16px;
-}
-
-@media (max-width: 768px) {
-    .quote-card {
-        padding: 1.2rem;
-        min-height: 160px;
-    }
-
-    .quote-text {
-        font-size: 1rem;
-        margin: 0 0 1.2rem 0;
-    }
+    width: clamp(14px, 2vw, 16px);
+    height: clamp(14px, 2vw, 16px);
 }
 
 @media (max-width: 480px) {
-    .quote-card {
-        padding: 1rem;
-        min-height: 140px;
-    }
-
-    .quote-text {
-        font-size: 0.95rem;
-    }
-
     .quote-card-bottom {
         flex-direction: column;
         align-items: flex-start;
