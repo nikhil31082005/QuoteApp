@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const quoteRoutes = require('./routes/quoteRoutes');
+const authRoutes = require('./routes/authRoutes');
+const { authenticateToken } = require('./middleware/authMiddleware');
 
 const app = express();
 
@@ -27,7 +29,8 @@ app.use(cors({
 app.use(express.json()); // To parse JSON request bodies
 
 // Routes
-app.use('/api/quotes', quoteRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/quotes', authenticateToken, quoteRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {

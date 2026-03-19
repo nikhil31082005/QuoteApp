@@ -1,27 +1,28 @@
 import React from 'react';
-import QuoteList from './components/QuoteList';
-import DailyQuote from './components/DailyQuote';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import ProtectedRoute from './components/ProtectedRoute';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import './App.css';
 
 function App() {
   return (
-    <div className="app-container">
-      <div className="app-content">
-        <header className="app-header">
-          <h1 className="app-title">
-            Wisdom Echo
-          </h1>
-          <p className="app-subtitle">
-            Daily Inspiration & Curated Insites from History's Greatest Minds
-          </p>
-        </header>
-
-        <main className="app-main">
-          <DailyQuote />
-          <QuoteList />
-        </main>
-      </div>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
