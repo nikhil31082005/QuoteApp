@@ -50,8 +50,7 @@ const QuoteList = () => {
         if (category === activeCategory) return;
         setActiveCategory(category);
         setPage(1);
-        setQuotes([]);
-        setHasMore(true);
+        // Removed setQuotes([]) to prevent full rerender layout shift
     };
 
     // Handles scrolling the categories horizontally with the mouse wheel
@@ -76,7 +75,7 @@ const QuoteList = () => {
             <div className='explore-quotes'>
                 EXPLORE MORE QUOTES
             </div>
-            <div className='cards-container'>
+            <div className='cards-container' style={{ opacity: loading ? 0.5 : 1, transition: 'opacity 0.2s ease-in-out' }}>
                 {quotes.map((q, idx) => (
                     <QuoteCard
                         key={q.id || Math.random().toString()}

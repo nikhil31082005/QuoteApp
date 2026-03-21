@@ -1,47 +1,23 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setLogout } from '../store/authSlice';
 import QuoteList from '../components/QuoteList';
 import DailyQuote from '../components/DailyQuote';
 
 const HomePage = () => {
-    const dispatch = useDispatch();
-
-    const handleLogout = () => {
-        dispatch(setLogout());
-    };
-
     return (
-        <div className="app-container">
-            <div className="app-content">
-                <header className="app-header">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
-                            <h1 className="app-title">Wisdom Echo</h1>
-                            <p className="app-subtitle">Daily Inspiration & Curated Insights from History's Greatest Minds</p>
-                        </div>
-                        <button
-                            onClick={handleLogout}
-                            style={{
-                                padding: '0.5rem 1rem',
-                                background: 'white',
-                                border: '1px solid currentColor',
-                                borderRadius: '4px',
-                                cursor: 'pointer',
-                                color: 'inherit',
-                                fontSize: '0.9rem'
-                            }}
-                        >
-                            Logout
-                        </button>
-                    </div>
-                </header>
-
-                <main className="app-main">
-                    <DailyQuote />
-                    <QuoteList />
-                </main>
+        <div className="app-content page-enter-active">
+            <div className="hero-section" style={{ textAlign: 'center', margin: '2rem 0 4rem', animation: 'fadeIn 0.8s ease-out' }}>
+                <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 800, background: 'linear-gradient(135deg, #fff, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '1rem', letterSpacing: '-1px' }}>
+                    Discover Daily Inspiration
+                </h1>
+                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(1.1rem, 3vw, 1.3rem)', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
+                    Curated insights from history's greatest minds to elevate your thinking and transform your day.
+                </p>
             </div>
+
+            <main className="app-main">
+                <DailyQuote />
+                <QuoteList />
+            </main>
         </div>
     );
 };
