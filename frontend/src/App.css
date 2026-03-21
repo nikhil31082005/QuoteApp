@@ -1,40 +1,38 @@
-.app-container {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.app-main-wrapper {
   min-height: 100vh;
-  width: 100%;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
   background-color: #040718;
+  background-image:
+    radial-gradient(circle at 15% 50%, rgba(168, 85, 247, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
 
-  .app-content {
-    height: 100%;
-    width: clamp(90%, 90vw, 1200px);
-    margin: auto;
+.app-content {
+  flex: 1;
+  width: clamp(90%, 90vw, 1200px);
+  margin: 0 auto;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+}
 
-    .app-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: clamp(1rem, 5vw, 2.5rem) clamp(0.5rem, 2vw, 1rem);
-      text-align: center;
-      gap: clamp(0.5rem, 2vw, 1rem);
+/* Page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
 
-      .app-title {
-        color: white;
-        font-size: clamp(1.75rem, 5vw, 3rem);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-      }
-
-      .app-subtitle {
-        color: rgb(133, 137, 137);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: clamp(1rem, 3vw, 1.875rem);
-        margin: 0;
-      }
-    }
-
-    .app-main {
-      height: 100%;
-    }
-  }
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
 }
