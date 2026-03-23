@@ -60,6 +60,16 @@
     margin-bottom: 2rem;
 }
 
+.quote-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    text-align: right;
+}
+
 .quote-card-bottom {
     margin-top: auto;
     border-top: 1px solid rgba(255, 255, 255, 0.1);

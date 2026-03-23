@@ -30,6 +30,11 @@ const QuoteCard = ({ quote, author, categories, index = 0 }) => {
                     <p className="quote-text">
                         {quote}
                     </p>
+                    {author && (
+                        <p className="quote-author">
+                            — {author}
+                        </p>
+                    )}
                 </div>
 
                 <div className="quote-card-bottom">

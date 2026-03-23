@@ -30,7 +30,7 @@ app.use(express.json()); // To parse JSON request bodies
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/quotes', authenticateToken, quoteRoutes);
+app.use('/api/quotes', quoteRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {

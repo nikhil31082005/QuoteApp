@@ -1,12 +1,22 @@
 const db = require('../config/db');
 
-const findAll = async (limit, offset, category = null) => {
+const findAll = async (limit, offset, category = null, author = null) => {
     let query = 'SELECT * FROM quotes';
     const params = [];
+    const conditions = [];
 
     if (category) {
-        query += ' WHERE JSON_CONTAINS(categories, ?)';
+        conditions.push('JSON_CONTAINS(categories, ?)');
         params.push(JSON.stringify(category));
+    }
+
+    if (author) {
+        conditions.push('author LIKE ?');
+        params.push(`%${author}%`);
+    }
+
+    if (conditions.length > 0) {
+        query += ' WHERE ' + conditions.join(' AND ');
     }
 
     query += ' LIMIT ? OFFSET ?';
@@ -50,6 +60,13 @@ const create = async (quoteData) => {
     return quoteId;
 };
 
+const findByAuthor = async (limit, offset, author) => {
+    const params = [author, Number(limit), Number(offset)];
+    const query = 'SELECT * FROM quotes WHERE author = ? LIMIT ? OFFSET ?';
+    const [rows] = await db.query(query, params);
+    return rows;
+}
+
 const getRandom = async () => {
     const query = 'SELECT * FROM quotes ORDER BY RAND() LIMIT 1';
     const [rows] = await db.execute(query);
@@ -76,11 +93,20 @@ const hasDailyPickForToday = async () => {
     return rows[0].count > 0;
 };
 
+const searchAuthors = async (searchTerm, limit = 10) => {
+    const query = 'SELECT DISTINCT author FROM quotes WHERE author LIKE ? AND author IS NOT NULL ORDER BY author ASC LIMIT ?';
+    // const query = 'SELECT author FROM quotes WHERE author LIKE ? AND author IS NOT NULL GROUP BY author ORDER BY author LIMIT ?';
+    const [rows] = await db.query(query, [`%${searchTerm}%`, Number(limit)]);
+    return rows.map(r => r.author).filter(Boolean);
+};
+
 module.exports = {
     findAll,
     findById,
     create,
+    findByAuthor,
     getRandom,
     getLatestDailyPick,
-    hasDailyPickForToday
+    hasDailyPickForToday,
+    searchAuthors
 };

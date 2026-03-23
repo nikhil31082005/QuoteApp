@@ -1,8 +1,8 @@
 const QuoteRepository = require('../repositories/quoteRepository');
 
-const getAllQuotes = async (page = 1, limit = 20, category = null) => {
+const getAllQuotes = async (page = 1, limit = 20, category = null, author = null) => {
     const offset = (page - 1) * limit;
-    const quotes = await QuoteRepository.findAll(parseInt(limit), parseInt(offset), category);
+    const quotes = await QuoteRepository.findAll(parseInt(limit), parseInt(offset), category, author);
     return quotes;
 };
 
@@ -34,10 +34,25 @@ const getDailyPick = async () => {
     return quote;
 };
 
+const getQuoteByAuthor = async (page = 1, limit = 20, author) => {
+    const offset = (page - 1) * limit;
+    const quotes = await QuoteRepository.findByAuthor(parseInt(limit), parseInt(offset), author);
+    if (quotes?.length > 0) {
+        return { quotes, isAvailable: true };
+    }
+    return { quotes, isAvailable: false };
+}
+
+const searchAuthors = async (searchTerm) => {
+    return await QuoteRepository.searchAuthors(searchTerm);
+};
+
 module.exports = {
     getAllQuotes,
     getQuoteById,
     getRandomQuote,
     createQuote,
-    getDailyPick
+    getDailyPick,
+    getQuoteByAuthor,
+    searchAuthors
 };

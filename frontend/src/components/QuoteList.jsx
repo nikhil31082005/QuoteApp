@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import QuoteCard from './QuoteCard';
 import { QuoteService } from '../services/api';
 import './QuoteList.css'
@@ -10,17 +11,20 @@ const CATEGORIES = [
 ];
 
 const QuoteList = () => {
+    const [searchParams] = useSearchParams();
+    const authorParam = searchParams.get('author');
+
     const [quotes, setQuotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [activeCategory, setActiveCategory] = useState("All");
 
-    const fetchQuotes = async (pageNum, currentCategory = activeCategory) => {
+    const fetchQuotes = async (pageNum, currentCategory = activeCategory, currentAuthor = authorParam) => {
         setLoading(true);
         // Only pass category to API if it's not "All"
         const categoryParam = currentCategory === "All" ? null : currentCategory;
-        const newQuotes = await QuoteService.getQuotes(pageNum, 20, categoryParam);
+        const newQuotes = await QuoteService.getQuotes(pageNum, 20, categoryParam, currentAuthor);
 
         if (newQuotes && newQuotes.length > 0) {
             if (pageNum === 1) {
@@ -37,13 +41,14 @@ const QuoteList = () => {
     };
 
     useEffect(() => {
-        fetchQuotes(1, activeCategory);
-    }, [activeCategory]);
+        setPage(1);
+        fetchQuotes(1, activeCategory, authorParam);
+    }, [activeCategory, authorParam]);
 
     const loadMore = () => {
         const nextPage = page + 1;
         setPage(nextPage);
-        fetchQuotes(nextPage);
+        fetchQuotes(nextPage, activeCategory, authorParam);
     };
 
     const handleCategorySelect = (category) => {

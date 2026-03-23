@@ -2,8 +2,8 @@ const QuoteService = require('../services/quoteService');
 
 const getAllQuotes = async (req, res) => {
     try {
-        const { page, limit, category } = req.query;
-        const quotes = await QuoteService.getAllQuotes(page, limit, category);
+        const { page, limit, category, author } = req.query;
+        const quotes = await QuoteService.getAllQuotes(page, limit, category, author);
         res.status(200).json({ success: true, data: quotes });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -56,10 +56,39 @@ const getDailyPick = async (req, res) => {
     }
 };
 
+const getQuoteByAuthor = async (req, res) => {
+    try {
+        const { author } = req.params;
+        const { page, limit } = req.query;
+        const data = await QuoteService.getQuoteByAuthor(page, limit, author);
+        if (!data.isAvailable) {
+            return res.status(404).json({ success: false, message: 'Author not found' });
+        }
+        return res.status(200).json({ success: true, data: data.quotes });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+const searchAuthors = async (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q) {
+            return res.status(200).json({ success: true, data: [] });
+        }
+        const authors = await QuoteService.searchAuthors(q);
+        res.status(200).json({ success: true, data: authors });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
 module.exports = {
     getAllQuotes,
     getQuoteById,
     getRandomQuote,
     createQuote,
-    getDailyPick
+    getDailyPick,
+    getQuoteByAuthor,
+    searchAuthors
 };
