@@ -1,12 +1,12 @@
 import React from 'react';
 import './QuoteCard.css'
 
-const BGS = [
-    '#251515', // Dark red
-    '#252210', // Dark yellow
-    '#111c25', // Dark blue
-    '#1c1626', // Dark purple
-    '#10211b', // Dark green
+const TAG_COLORS = [
+    'linear-gradient(135deg, #a855f7, #6366f1)', // Purple to Indigo
+    'linear-gradient(135deg, #ec4899, #f43f5e)', // Pink to Rose
+    'linear-gradient(135deg, #10b981, #3b82f6)', // Emerald to Blue
+    'linear-gradient(135deg, #f59e0b, #ef4444)', // Amber to Red
+    'linear-gradient(135deg, #06b6d4, #2563eb)'  // Cyan to Blue
 ];
 
 const QuoteCard = ({ quote, author, categories, index = 0 }) => {
@@ -16,17 +16,13 @@ const QuoteCard = ({ quote, author, categories, index = 0 }) => {
         parsedCategories = typeof categories === 'string' ? JSON.parse(categories) : categories;
     } catch (e) { /* ignore */ }
 
-    // Fallback category if none is parsed effectively
-    const firstCategory = parsedCategories && parsedCategories.length > 0 ? parsedCategories[0] : "GENERAL";
-
     // Choose a color based on the index to have a consistent alternating pattern
-    const bgColor = BGS[index % BGS.length];
+    const tagBg = TAG_COLORS[index % TAG_COLORS.length];
 
     return (
-        <div className="quote-card" style={{ backgroundColor: bgColor }}>
+        <div className="quote-card">
             <div className="quote-card-content">
                 <div className="quote-card-top">
-                    <p className="quote-card-category-title">{firstCategory}</p>
                     <p className="quote-text">
                         {quote}
                     </p>
@@ -40,7 +36,7 @@ const QuoteCard = ({ quote, author, categories, index = 0 }) => {
                 <div className="quote-card-bottom">
                     <div className="quote-categories">
                         {parsedCategories && parsedCategories.slice(0, 2).map((cat, idx) => (
-                            <span key={idx} className="quote-category-tag">
+                            <span key={idx} className="quote-category-tag" style={{ background: tagBg, color: 'white', border: 'none' }}>
                                 {cat}
                             </span>
                         ))}
