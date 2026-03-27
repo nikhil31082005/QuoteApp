@@ -42,7 +42,9 @@ async function seedDatabase() {
 
         // Truncate existing table first (optional, but good for clean seeding)
         console.log('Truncating existing quotes table...');
+        await connection.query('SET FOREIGN_KEY_CHECKS = 0');
         await connection.query('TRUNCATE TABLE quotes');
+        await connection.query('SET FOREIGN_KEY_CHECKS = 1');
 
         for (let i = 0; i < quotes.length; i += BATCH_SIZE) {
             const batch = quotes.slice(i, i + BATCH_SIZE);

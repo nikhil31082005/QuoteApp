@@ -6,6 +6,7 @@
     display: flex;
     gap: 1rem;
     overflow-x: auto;
+    padding-top: 0.2rem;
     padding-bottom: 2rem;
     margin-bottom: 1rem;
     scrollbar-width: none;
@@ -76,9 +77,8 @@
 }
 
 .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
+    column-width: 320px;
+    column-gap: 2rem;
     margin-bottom: 4rem;
 }
 
