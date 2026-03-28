@@ -74,5 +74,22 @@ export const QuoteService = {
             console.error('Failed to fetch quotes', error);
             return [];
         }
+    },
+
+    async createReaction(id, reaction) {
+        try {
+            const response = await fetch(`${API_URL}/quotes/${id}/reaction`, { 
+                method: 'POST', 
+                headers: {
+                    ...getHeaders(),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ reaction })
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Failed to create reaction', error);
+            return { success: false };
+        }
     }
 };

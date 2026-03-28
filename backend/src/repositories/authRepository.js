@@ -4,7 +4,7 @@ const checkUser = async (email) => {
     const query = "SELECT * FROM users WHERE email = ?";
     const values = [email];
     const [result] = await db.query(query, values);
-    return result.length > 0;
+    return result;
 };
 
 const registerUser = async (username, email, password) => {

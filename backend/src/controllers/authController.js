@@ -5,8 +5,8 @@ const jwt = require('../config/jwt');
 const checkUserRegistered = async (req, res) => {
     try {
         const { email } = req.body;
-        const isUserRegistered = await AuthService.checkUser(email);
-        res.status(200).json({ success: true, data: isUserRegistered });
+        const result = await AuthService.checkUser(email);
+        res.status(200).json({ success: true, data: result.length > 0 });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
@@ -20,9 +20,9 @@ const registerUser = async (req, res) => {
             return res.status(400).json({ success: false, message: "Username, email and password are required" });
         }
 
-        const isUserRegistered = await AuthService.checkUser(email);
+        const result = await AuthService.checkUser(email);
 
-        if (isUserRegistered) {
+        if (result.length > 0) {
             return res.status(409).json({ success: false, data: "User already registered" });
         }
 
