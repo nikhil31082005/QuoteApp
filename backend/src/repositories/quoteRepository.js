@@ -100,6 +100,25 @@ const searchAuthors = async (searchTerm, limit = 10) => {
     return rows.map(r => r.author).filter(Boolean);
 };
 
+const createReaction = async (quoteId, reaction, userId) => {
+    const query = 'INSERT INTO user_reaction (userId, quoteId, reaction) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE reaction = VALUES(reaction), created_at = CURRENT_TIMESTAMP';
+    const [result] = await db.execute(query, [userId, quoteId, reaction]);
+    return result;
+}
+
+const getLikeCount = async (quoteId) => {
+    const query = 'SELECT COUNT(*) as count FROM user_reaction WHERE reaction = "like" AND quoteId = ?';
+    const [rows] = await db.execute(query, [quoteId]);
+    // COUNT always returns a row, but we add a safety fallback just in case
+    return rows[0] ? rows[0].count : 0;
+}
+
+const getDislikeCount = async (quoteId) => {
+    const query = 'SELECT COUNT(*) as count FROM user_reaction WHERE reaction = "dislike" AND quoteId = ?';
+    const [rows] = await db.execute(query, [quoteId]);
+    return rows[0] ? rows[0].count : 0;
+}
+
 module.exports = {
     findAll,
     findById,
@@ -108,5 +127,8 @@ module.exports = {
     getRandom,
     getLatestDailyPick,
     hasDailyPickForToday,
-    searchAuthors
+    searchAuthors,
+    createReaction,
+    getLikeCount,
+    getDislikeCount
 };

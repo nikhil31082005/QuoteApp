@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const QuoteController = require('../controllers/quoteController');
 
+const { authenticateToken } = require('../middleware/authMiddleware');
+
 // GET /api/quotes
 router.get('/', QuoteController.getAllQuotes);
 
@@ -22,5 +24,8 @@ router.post('/', QuoteController.createQuote);
 
 // GET /api/quotes/author/:author
 router.get('/author/:author', QuoteController.getQuoteByAuthor);
+
+// POST /api/quotes/:id/reaction
+router.post('/:id/reaction', authenticateToken, QuoteController.createReaction);
 
 module.exports = router;

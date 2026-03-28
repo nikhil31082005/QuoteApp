@@ -84,10 +84,13 @@ const QuoteList = () => {
                 {quotes.map((q, idx) => (
                     <QuoteCard
                         key={q.id || Math.random().toString()}
+                        id={q.id}
                         index={idx}
                         quote={q.quote_text}
                         author={q.author}
                         categories={q.categories}
+                        likeCount={q.like_count || 0}
+                        dislikeCount={q.dislike_count || 0}
                     />
                 ))}
             </div>

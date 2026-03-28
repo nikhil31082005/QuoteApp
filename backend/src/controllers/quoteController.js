@@ -83,6 +83,21 @@ const searchAuthors = async (req, res) => {
     }
 };
 
+const createReaction = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { reaction } = req.body;
+        const email = req.user.email;
+        const data = await QuoteService.createReaction(id, reaction, email);
+        res.status(201).json({ success: true, data: data });
+    } catch (error) {
+        if (error.message === 'Quote not found') {
+            return res.status(404).json({ success: false, message: error.message });
+        }
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
 module.exports = {
     getAllQuotes,
     getQuoteById,
@@ -90,5 +105,6 @@ module.exports = {
     createQuote,
     getDailyPick,
     getQuoteByAuthor,
-    searchAuthors
+    searchAuthors,
+    createReaction
 };
