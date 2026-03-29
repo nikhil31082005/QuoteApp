@@ -69,12 +69,12 @@ const Navbar = () => {
                 <Link to="/" className="navbar-logo">
                     Quotopia
                 </Link>
-                <div className="navbar-search" ref={searchRef}>
-                    <input 
-                        type="text" 
+                {token && (<div className="navbar-search" ref={searchRef}>
+                    <input
+                        type="text"
                         placeholder="Search by author..."
-                        name="authorname" 
-                        id="authorname" 
+                        name="authorname"
+                        id="authorname"
                         value={inputValue}
                         onChange={(e) => {
                             setInputValue(e.target.value);
@@ -83,15 +83,15 @@ const Navbar = () => {
                         onFocus={() => {
                             if (suggestions.length > 0) setShowSuggestions(true);
                         }}
-                        onKeyDown={handleKeyDown} 
+                        onKeyDown={handleKeyDown}
                         className="author-search-input"
                         autoComplete="off"
                     />
                     {showSuggestions && suggestions.length > 0 && (
                         <div className="suggestions-dropdown">
                             {suggestions.map((author, index) => (
-                                <div 
-                                    key={index} 
+                                <div
+                                    key={index}
                                     className="suggestion-item"
                                     onClick={() => handleSuggestionClick(author)}
                                 >
@@ -100,7 +100,7 @@ const Navbar = () => {
                             ))}
                         </div>
                     )}
-                </div>
+                </div>)}
                 <div className="navbar-menu">
                     {token && (
                         <button onClick={handleLogout} className="navbar-logout">

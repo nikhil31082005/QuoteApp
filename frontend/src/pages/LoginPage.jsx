@@ -32,18 +32,18 @@ const LoginPage = () => {
         <div className="auth-container">
             <form className="auth-form" onSubmit={handleSubmit}>
                 <h2>Login</h2>
-                {error && <div className="auth-error">{error}</div>}
-                
+                {error && <div className="auth-error">Email and Password is incorrect</div>}
+
                 <div className="form-group">
                     <label>Email</label>
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                
+
                 <div className="form-group">
                     <label>Password</label>
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
-                
+
                 <button type="submit" className="auth-button">Login</button>
                 <div className="auth-links">
                     <Link to="/register">Don't have an account? Register here.</Link>

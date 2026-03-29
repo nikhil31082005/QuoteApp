@@ -14,7 +14,7 @@ router.get('/random', QuoteController.getRandomQuote);
 router.get('/daily', QuoteController.getDailyPick);
 
 // GET /api/quotes/authors/search
-router.get('/authors/search', QuoteController.searchAuthors);
+router.get('/authors/search', authenticateToken, QuoteController.searchAuthors);
 
 // GET /api/quotes/:id
 router.get('/:id', QuoteController.getQuoteById);
