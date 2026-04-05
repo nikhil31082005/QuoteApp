@@ -26,7 +26,7 @@ const RegisterPage = () => {
             <form className="auth-form" onSubmit={handleSubmit}>
                 <h2>Register</h2>
                 {error && <div className="auth-error">{error}</div>}
-                
+
                 <div className="form-group">
                     <label>Username</label>
                     <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
@@ -36,15 +36,15 @@ const RegisterPage = () => {
                     <label>Email</label>
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                
+
                 <div className="form-group">
                     <label>Password</label>
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
-                
+
                 <button type="submit" className="auth-button">Register</button>
                 <div className="auth-links">
-                    <Link to="/login">Already have an account? Login here.</Link>
+                    <Link to="/login">Already have an account? <div style={{ color: 'white' }}> Login </div> here.</Link>
                 </div>
             </form>
         </div>

@@ -46,7 +46,7 @@ const LoginPage = () => {
 
                 <button type="submit" className="auth-button">Login</button>
                 <div className="auth-links">
-                    <Link to="/register">Don't have an account? Register here.</Link>
+                    <Link to="/register">Don't have an account? <span style={{ color: 'red' }}> Register</span> here.</Link>
                 </div>
             </form>
         </div>
