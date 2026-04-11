@@ -12,7 +12,7 @@ const TAG_COLORS = [
 ];
 
 const QuoteCard = ({ quote, author, categories, index = 0, id, likeCount: initialLikes = 0, dislikeCount: initialDislikes = 0 }) => {
-    const token = useSelector(state => state.auth.token);
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
     const [currentReaction, setCurrentReaction] = useState(null);
     const [likes, setLikes] = useState(initialLikes);
     const [dislikes, setDislikes] = useState(initialDislikes);
@@ -27,7 +27,7 @@ const QuoteCard = ({ quote, author, categories, index = 0, id, likeCount: initia
     const tagBg = TAG_COLORS[index % TAG_COLORS.length];
 
     const handleReaction = useCallback(async (reactionType) => {
-        if (!token) {
+        if (!isAuthenticated) {
             alert("Please login to react to quotes!");
             return;
         }
@@ -41,7 +41,7 @@ const QuoteCard = ({ quote, author, categories, index = 0, id, likeCount: initia
             setLikes(response.data.likeCount);
             setDislikes(response.data.dislikeCount);
         }
-    }, [token, id]);
+    }, [isAuthenticated, id]);
 
     return (
         <div className="quote-card">

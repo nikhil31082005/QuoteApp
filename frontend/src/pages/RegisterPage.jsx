@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../store/authSlice';
 import { AuthService } from '../services/authService';
 import './AuthPages.css';
 
@@ -8,14 +10,20 @@ const RegisterPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         try {
-            await AuthService.register({ username, email, password });
-            navigate('/login');
+            const data = await AuthService.register({ username, email, password });
+            if (data.success || data) { // Some APIs return just true/object, but backend returns { success: true }
+                dispatch(setLogin());
+                navigate('/');
+            } else {
+                setError('Registration failed');
+            }
         } catch (err) {
             setError(err.message);
         }

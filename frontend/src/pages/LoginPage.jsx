@@ -17,11 +17,11 @@ const LoginPage = () => {
         setError('');
         try {
             const data = await AuthService.login({ email, password });
-            if (data.token) {
-                dispatch(setLogin(data.token));
+            if (data.success) {
+                dispatch(setLogin());
                 navigate('/');
             } else {
-                setError('Login failed: No token received');
+                setError('Login failed');
             }
         } catch (err) {
             setError(err.message);
@@ -32,7 +32,7 @@ const LoginPage = () => {
         <div className="auth-container">
             <form className="auth-form" onSubmit={handleSubmit}>
                 <h2>Login</h2>
-                {error && <div className="auth-error">Email and Password is incorrect</div>}
+                {error && <div className="auth-error">{error}</div>}
 
                 <div className="form-group">
                     <label>Email</label>

@@ -1,29 +1,33 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import apiClient from './apiClient';
 
 export const AuthService = {
     async register(userData) {
-        const response = await fetch(`${API_URL}/auth/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData),
-        });
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(data.message || 'Registration failed');
+        try {
+            const response = await apiClient.post('/auth/register', userData);
+            return response.data; // normally { success, message }
+        } catch (error) {
+            const message = error.response?.data?.message || error.message || 'Registration failed';
+            throw new Error(message);
         }
-        return data; // normally { success, message }
     },
 
     async login(credentials) {
-        const response = await fetch(`${API_URL}/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(credentials),
-        });
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(data.message || 'Login failed');
+        try {
+            const response = await apiClient.post('/auth/login', credentials);
+            return response.data; // { success, token, user }
+        } catch (error) {
+            const message = error.response?.data?.message || error.response?.data?.data || error.message || 'Login failed';
+            throw new Error(message);
         }
-        return data; // { success, token, user }
+    },
+
+    async logout() {
+        try {
+            const response = await apiClient.post('/auth/logout');
+            return response.data;
+        } catch (error) {
+            console.error('Logout failed:', error);
+            return { success: false };
+        }
     }
 };

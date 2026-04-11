@@ -115,6 +115,9 @@
     cursor: pointer;
     transition: all 0.2s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .suggestion-item:last-child {
@@ -135,5 +138,20 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .navbar-search {
+        order: 3;
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin: 0;
     }
 }

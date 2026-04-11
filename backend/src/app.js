@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const quoteRoutes = require('./routes/quoteRoutes');
 const authRoutes = require('./routes/authRoutes');
 const { authenticateToken } = require('./middleware/authMiddleware');
@@ -27,6 +28,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json()); // To parse JSON request bodies
+app.use(cookieParser()); // To parse cookies
 
 // Routes
 app.use('/api/auth', authRoutes);

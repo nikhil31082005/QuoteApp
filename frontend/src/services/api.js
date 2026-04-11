@@ -1,20 +1,10 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-
-const getHeaders = () => {
-    const headers = {};
-    const token = localStorage.getItem('token');
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-    }
-    return headers;
-};
+import apiClient from './apiClient';
 
 export const QuoteService = {
     async getDailyQuote() {
         try {
-            const response = await fetch(`${API_URL}/quotes/daily`, { headers: getHeaders() });
-            const data = await response.json();
-            return data.success ? data.data : null;
+            const response = await apiClient.get('/quotes/daily');
+            return response.data.success ? response.data.data : null;
         } catch (error) {
             console.error('Failed to fetch daily quote', error);
             return null;
@@ -23,9 +13,8 @@ export const QuoteService = {
 
     async getQuoteByAuthor(page = 1, limit = 20, category = null) {
         try {
-            const response = await fetch(`${API_URL}/quotes/author`, { headers: getHeaders() });
-            const data = await response.json();
-            return data.success ? data.data : null;
+            const response = await apiClient.get('/quotes/author');
+            return response.data.success ? response.data.data : null;
         } catch (error) {
             console.error('Failed to fetch quotes', error);
             return [];
@@ -34,9 +23,8 @@ export const QuoteService = {
 
     async getRandomQuote() {
         try {
-            const response = await fetch(`${API_URL}/quotes/random`, { headers: getHeaders() });
-            const data = await response.json();
-            return data.success ? data.data : null;
+            const response = await apiClient.get('/quotes/random');
+            return response.data.success ? response.data.data : null;
         } catch (error) {
             console.error('Failed to fetch random quote', error);
             return null;
@@ -45,11 +33,8 @@ export const QuoteService = {
 
     async searchAuthors(query) {
         try {
-            const url = new URL(`${API_URL}/quotes/authors/search`);
-            url.searchParams.append('q', query);
-            const response = await fetch(url.toString(), { headers: getHeaders() });
-            const data = await response.json();
-            return data.success ? data.data : [];
+            const response = await apiClient.get('/quotes/authors/search', { params: { q: query } });
+            return response.data.success ? response.data.data : [];
         } catch (error) {
             console.error('Failed to search authors', error);
             return [];
@@ -58,18 +43,12 @@ export const QuoteService = {
 
     async getQuotes(page = 1, limit = 20, category = null, author = null) {
         try {
-            const url = new URL(`${API_URL}/quotes`);
-            url.searchParams.append('page', page);
-            url.searchParams.append('limit', limit);
-            if (category) {
-                url.searchParams.append('category', category);
-            }
-            if (author) {
-                url.searchParams.append('author', author);
-            }
-            const response = await fetch(url.toString(), { headers: getHeaders() });
-            const data = await response.json();
-            return data.success ? data.data : [];
+            const params = { page, limit };
+            if (category) params.category = category;
+            if (author) params.author = author;
+            
+            const response = await apiClient.get('/quotes', { params });
+            return response.data.success ? response.data.data : [];
         } catch (error) {
             console.error('Failed to fetch quotes', error);
             return [];
@@ -78,15 +57,8 @@ export const QuoteService = {
 
     async createReaction(id, reaction) {
         try {
-            const response = await fetch(`${API_URL}/quotes/${id}/reaction`, { 
-                method: 'POST', 
-                headers: {
-                    ...getHeaders(),
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ reaction })
-            });
-            return await response.json();
+            const response = await apiClient.post(`/quotes/${id}/reaction`, { reaction });
+            return response.data;
         } catch (error) {
             console.error('Failed to create reaction', error);
             return { success: false };

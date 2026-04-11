@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLogout } from '../store/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthService } from '../services/authService';
 import { QuoteService } from '../services/api';
 import './Navbar.css';
 
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const token = useSelector((state) => state.auth.token);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
     const [inputValue, setInputValue] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -42,7 +43,8 @@ const Navbar = () => {
         return () => clearTimeout(delayDebounceFn);
     }, [inputValue]);
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        await AuthService.logout();
         dispatch(setLogout());
     };
 
@@ -69,7 +71,7 @@ const Navbar = () => {
                 <Link to="/" className="navbar-logo">
                     Quotopia
                 </Link>
-                {token && (<div className="navbar-search" ref={searchRef}>
+                {isAuthenticated && (<div className="navbar-search" ref={searchRef}>
                     <input
                         type="text"
                         placeholder="Search by author..."
@@ -102,7 +104,7 @@ const Navbar = () => {
                     )}
                 </div>)}
                 <div className="navbar-menu">
-                    {token && (
+                    {isAuthenticated && (
                         <button onClick={handleLogout} className="navbar-logout">
                             Logout
                         </button>
